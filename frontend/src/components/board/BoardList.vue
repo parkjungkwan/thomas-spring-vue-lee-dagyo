@@ -48,7 +48,7 @@ import {store} from '../../store'
 export default {
     data() {
         return {
-            context: 'http://localhost:9090/bbs',
+            context: 'http://localhost:9000/bbs',
             list : []
         }
     },

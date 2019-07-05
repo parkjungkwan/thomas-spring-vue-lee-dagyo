@@ -48,7 +48,6 @@ export default {
     },
     methods: {
         write(){
-            alert('write진입');
             let data = {
                 hit:this.hit,
                 writer:this.writer, 
@@ -70,6 +69,7 @@ export default {
             })
             .catch(e=>{
                 alert("ERROR");
+                this.$router.link(-1);
             })
         }
     }

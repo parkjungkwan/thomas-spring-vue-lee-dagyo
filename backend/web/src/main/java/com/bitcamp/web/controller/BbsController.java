@@ -37,7 +37,7 @@ public class BbsController {
         return modelMapper;
     }
  
-    @GetMapping("/list")
+    @GetMapping("")
     public List<BbsDTO> listView() {
         System.out.println("listView 진입");
         System.out.println(repo.findAll().toString());

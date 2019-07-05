@@ -3,7 +3,7 @@
         <h1><router-link to="/"><img :src="images.logo" alt="logo"></router-link></h1>
         <ul id="nav">
             <li><router-link to="/introduce">INTRODUCE</router-link></li>
-            <li><router-link to="/board">BOARD</router-link></li>
+            <li><router-link to="/board_list">BOARD</router-link></li>
             <li><router-link to="/contact">CONTACT</router-link></li>
         </ul>
         <ul id="user">
