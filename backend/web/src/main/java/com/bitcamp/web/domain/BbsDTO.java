@@ -11,6 +11,5 @@ import lombok.Data;
 @Data @Component @Lazy
 public class BbsDTO {
 
-    private int bbsNum, hit;
-    private String writer, password, title, contents, regdate;
+    private String bbsNum, writer, password, title, contents, regdate;
 }

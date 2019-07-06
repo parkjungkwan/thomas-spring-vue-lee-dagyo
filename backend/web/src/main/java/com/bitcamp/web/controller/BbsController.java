@@ -1,7 +1,10 @@
 package com.bitcamp.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
 
 import com.bitcamp.web.domain.BbsDTO;
 import com.bitcamp.web.entities.Bbs;
@@ -51,8 +54,11 @@ public class BbsController {
     }
 
     @GetMapping("/{bbsNum}")
-    public void pageView(@PathVariable int bbsNum) {
-
+    public BbsDTO pageView(@PathVariable String bbsNum) {
+        return modelMapper.map(
+            repo.findById(Long.parseLong(bbsNum)).orElseThrow(EntityNotFoundException::new), 
+            BbsDTO.class
+            );
     }
 
     @PostMapping("")
@@ -74,12 +80,23 @@ public class BbsController {
     }
 
     @PutMapping("/{bbsNum}")
-    public void modify() {
+    public HashMap<String, Object> modify(@PathVariable String bbsNum, @RequestBody BbsDTO dto) {
+        Bbs entity = repo.findById(Long.parseLong(bbsNum)).get();
+        entity.setWriter(dto.getWriter());
+        entity.setTitle(dto.getTitle());
+        entity.setContents(dto.getContents());
+        entity.setPassword(dto.getPassword());
+        repo.save(entity);
+
+        HashMap map = new HashMap<>();
+        map.put("result", dto);
         
+        return map;
     }
 
     @DeleteMapping("/{bbsNum}")
-    public void delete() {
-        
+    public void del(@PathVariable String bbsNum) {
+        System.out.println(bbsNum);
+        repo.deleteById(Long.parseLong(bbsNum));
     }
 }

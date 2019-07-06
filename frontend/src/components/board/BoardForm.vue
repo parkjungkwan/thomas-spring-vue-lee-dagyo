@@ -39,7 +39,6 @@ export default {
     data() {
         return {
             context: 'http://localhost:9000/bbs',
-            hit: 0,
             writer: '', 
             password: '', 
             title: '', 
@@ -49,7 +48,6 @@ export default {
     methods: {
         write(){
             let data = {
-                hit:this.hit,
                 writer:this.writer, 
                 password:this.password, 
                 title:this.title, 
@@ -63,7 +61,7 @@ export default {
                 JSON.stringify(data),
                 {headers: headers})
             .then(res=>{
-                alert(`SUCCESS : ${res.data[0].title}`);
+                //alert(`SUCCESS : ${res.data[0].title}`);
                 store.state.list = res.data
                 this.$router.push("/board_list");
             })

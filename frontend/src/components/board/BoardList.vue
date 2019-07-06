@@ -13,14 +13,12 @@
                     <dt class="dt2">제목</dt>
                     <dt class="dt3">작성자</dt>
                     <dt class="dt4">날짜</dt>
-                    <dt class="dt5">조회수</dt>
                 </dl>
-                <dl class="cf" v-for="item in list" v-bind:key="item">
+                <dl class="cf" v-for="(item,index) in list" v-bind:key="index" @click="view(item)">
                         <dd class="dt1">{{item.bbsNum}}</dd>
                         <dd class="dt2 tal">{{item.title}}</dd>
                         <dd class="dt3">{{item.writer}}</dd>
-                        <dd class="dt4">{{item.regdate}}</dd>
-                        <dd class="dt5">{{item.hit}}</dd>
+                        <dd class="dt4">{{item.regdate.substr(0,10)}}</dd>
                 </dl> 
             </div>
             <div id="paging">
@@ -45,7 +43,9 @@ import Header from '@/components/common/Header.vue'
 import Footer from '@/components/common/Footer.vue'
 import axios from 'axios'
 import {store} from '../../store'
+
 export default {
+    
     data() {
         return {
             context: 'http://localhost:9000/bbs',
@@ -57,11 +57,27 @@ export default {
         Header, Footer
     },
     methods: {
-        
+
+
+        view(item) {
+            store.state.bbsnum = item.bbsNum;
+            store.state.writer = item.writer;
+            store.state.title = item.title;
+            store.state.contents = item.contents;
+            store.state.regdate = item.regdate;
+            store.state.password = item.password;
+            this.$router.push('/board_view')
+        }
     },
 
     created() {
-        this.list = this.$store.state.list
+        axios.get(`${this.context}`).then((response)=>{
+            console.log(response);
+           this.list = response.data;
+
+        })
+
+        //this.list = this.$store.state.list
     }
 }
 </script>
@@ -70,11 +86,10 @@ export default {
     dl { float: none; width: 100%; border-bottom: 1px solid #000;}
     dt, dd {float: left; padding: 10px 0; text-align: center;}
     dl#top { border: 1px solid #000;}
-    .dt1 { width:8%;}
-    .dt2 { width: 42%;}
+    .dt1 { width:10%;}
+    .dt2 { width: 55%;}
     .dt3 { width: 20%;}
-    .dt4 { width: 20%;}
-    .dt5 { width: 10%;}
+    .dt4 { width: 15%;}
     .tal { text-align: left;}
     #search { margin-bottom: 10px;}
     input { vertical-align: middle;}

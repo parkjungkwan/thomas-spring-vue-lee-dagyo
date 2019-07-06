@@ -34,22 +34,20 @@ public class Bbs implements Serializable{
     @Column(name="password") private String password;
     @Column(name="title") private String title;
     @Column(name="contents") private String contents;
-    @Column(name="hit") private int hit;
 
     @Override
     public String toString(){
-        return "Bbs[bbsNum:"+bbsNum+",writer:"+writer+",password:"+password+",title:"+title+",contents:"+contents+",regdate:"+regdate+",hit:"+hit+"]";
+        return "Bbs[bbsNum:"+bbsNum+",writer:"+writer+",password:"+password+",title:"+title+",contents:"+contents+",regdate:"+regdate+"]";
     }
 
     @Builder
     public Bbs(
-        String writer, String password, String title, String contents, String regdate, int hit
+        String writer, String password, String title, String contents, String regdate
     ){
         this.writer = writer;
         this.password = password;
         this.title = title;
         this.contents = contents;
-        this.hit = hit;
     }
 
     @CreationTimestamp
